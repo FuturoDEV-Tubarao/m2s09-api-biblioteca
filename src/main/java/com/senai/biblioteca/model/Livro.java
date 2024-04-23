@@ -27,17 +27,19 @@ public class Livro {
     private LocalDateTime dataCadastro;
 
 
-    public Livro() { }
+    public Livro() {
+        this.disponivel = true;
+        this.dataCadastro = LocalDateTime.now();
+     }
 
     public Livro(String isbn, String titulo, String nomeAutor, Integer qtdPaginas, 
             LocalDate dataPublicacao) {
+        this();
         this.isbn = isbn;
         this.titulo = titulo;
         this.nomeAutor = nomeAutor;
         this.qtdPaginas = qtdPaginas;
         this.dataPublicacao = dataPublicacao;
-        this.disponivel = true;
-        this.dataCadastro = LocalDateTime.now();
     }
 
     public String getIsbn() {
