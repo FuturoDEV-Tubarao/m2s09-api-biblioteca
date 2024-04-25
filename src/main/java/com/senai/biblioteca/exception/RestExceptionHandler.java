@@ -30,6 +30,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(retorno);
     }
 
+    @ExceptionHandler(LivroIndisponivelException.class)
+    public ResponseEntity<Object> handleRegistroLivroIndisponivelException(LivroIndisponivelException e) {
+        Map<String, String> retorno = new HashMap<>();
+        retorno.put("erro", "Livro não disponível para empréstimo");        
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(retorno);
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         Map<String, String> fieldErrors = new HashMap<>();

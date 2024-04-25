@@ -22,7 +22,7 @@ public class Livro {
 
     private LocalDate dataPublicacao;
 
-    private Boolean disponivel;
+    private boolean disponivel;
 
     private LocalDateTime dataCadastro;
 
@@ -82,7 +82,7 @@ public class Livro {
         this.dataPublicacao = dataPublicacao;
     }
 
-    public Boolean getDisponivel() {
+    public Boolean isDisponivel() {
         return disponivel;
     }
 

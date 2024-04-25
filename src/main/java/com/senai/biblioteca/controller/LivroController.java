@@ -26,7 +26,7 @@ import jakarta.validation.Valid;
 public class LivroController {
     
     @Autowired
-    private LivroService livroService;
+    private LivroService service;
 
     @Autowired
     private LivroMapper mapper;
@@ -34,7 +34,7 @@ public class LivroController {
 
     @GetMapping
     public ResponseEntity<List<LivroResponse>> listar() {
-        List<Livro> livros = livroService.consultar();
+        List<Livro> livros = service.consultar();
         List<LivroResponse> resp = new ArrayList<>();
         for (var livro : livros) {
             LivroResponse livroDTO = mapper.toResponse(livro);
@@ -47,7 +47,7 @@ public class LivroController {
 
     @GetMapping("{isbn}")
     public ResponseEntity<LivroResponse> consultar(@PathVariable String isbn) {
-        Livro livro = livroService.consultar(isbn);
+        Livro livro = service.consultar(isbn);
         // substituido pelo MapStruct, que funciona para mapear inclusive com records
         // LivroResponse resp = new LivroResponse(livro.getIsbn(), livro.getTitulo(), livro.getNomeAutor(), 
         //     livro.getQtdPaginas(), livro.getDataPublicacao(), livro.getDisponivel()); 
@@ -61,7 +61,7 @@ public class LivroController {
         //     request.qtdPaginas(), request.dataPublicacao());
         // Conversao usando MapStruct:
         Livro livro = mapper.toEntity(request);
-        livro = livroService.criar(livro);
+        livro = service.criar(livro);
         // LivroResponse resp = new LivroResponse(livro.getIsbn(), livro.getTitulo(), livro.getNomeAutor(), 
             // livro.getQtdPaginas(), livro.getDataPublicacao(), livro.getDisponivel()); 
         LivroResponse resp = mapper.toResponse(livro);

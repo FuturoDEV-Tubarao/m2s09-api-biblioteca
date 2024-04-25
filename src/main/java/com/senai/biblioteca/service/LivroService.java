@@ -14,23 +14,33 @@ import com.senai.biblioteca.repository.LivroRepository;
 public class LivroService {
 
     @Autowired
-    private LivroRepository livroRepository;
+    private LivroRepository repository;
 
     public List<Livro> consultar() {
-        return livroRepository.findAll();
+        return repository.findAll();
     }
 
     public Livro consultar(String isbn) {
-        return livroRepository.findById(isbn)
+        return repository.findById(isbn)
             .orElseThrow(() -> new RegistroNaoEncontradoException());
     }
 
     public Livro criar(Livro livro) {
-        boolean existe = livroRepository.existsById(livro.getIsbn());
+        boolean existe = repository.existsById(livro.getIsbn());
         if (existe)
             throw new RegistroExistenteException();
-        livro = livroRepository.save(livro);
+        livro = repository.save(livro);
         return livro;
+    }
+
+    public void emprestar(Livro livro) {
+        livro.setDisponivel(false);
+        repository.save(livro);
+    }
+
+    public void devolver(Livro livro) {
+        livro.setDisponivel(true);
+        repository.save(livro);
     }
     
 }
